@@ -312,9 +312,6 @@ namespace Quantum {
 					return this_;
 				};
 
-				static TPointer<Variable> image(VariableFunction *function, Variable *this_, VariableArray *arguments) {
-				};
-
 				static TPointer<Variable> pngLoad(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-png-load\n");
