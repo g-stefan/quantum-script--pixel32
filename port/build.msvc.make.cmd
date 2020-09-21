@@ -19,5 +19,5 @@ exit 1
 :StepX
 
 call :cmdX file-to-cs --touch=source/quantum-script-extension-pixel32.cpp --file-in=source/quantum-script-extension-pixel32.js --file-out=source/quantum-script-extension-pixel32.src --is-string --name=extensionPixel32Source
-call :cmdX xyo-cc --mode=%ACTION% @util/quantum-script-extension-pixel32.static.compile.info
-call :cmdX xyo-cc --mode=%ACTION% @util/quantum-script-extension-pixel32.dynamic.compile.info
+call :cmdX xyo-cc --mode=%ACTION% @util/quantum-script-extension-pixel32.static.compile
+call :cmdX xyo-cc --mode=%ACTION% @util/quantum-script-extension-pixel32.dynamic.compile
