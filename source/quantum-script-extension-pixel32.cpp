@@ -80,7 +80,12 @@ namespace Quantum {
 						uint32_t g_;
 						uint32_t b_;
 						uint32_t a_;
-						sscanf((char *)(((VariableString *)(rx.value()))->value.value()), "%02X%02X%02X%02X", &r_, &g_, &b_, &a_);
+						if(sscanf((char *)(((VariableString *)(rx.value()))->value.value()), "%02X%02X%02X%02X", &r_, &g_, &b_, &a_) != 4){
+							r_ = 0;
+							g_ = 0;
+							b_ = 0;
+							a_ = 0;
+						};
 						return VariablePixel::newVariable(XYO_PIXEL32_PIXEL(r_, g_, b_, a_));
 					};
 
