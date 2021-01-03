@@ -52,3 +52,7 @@
 /build/
 /lib/
 /release/
+
+# Test
+/test/output.0001.png
+/test/output.0002.png
