@@ -48,11 +48,8 @@
 *.o2so
 *.o2elf
 *.config.md5
-/bin/
-/build/
-/lib/
-/release/
 
-# Test
-/test/output.0001.png
-/test/output.0002.png
+# Development
+/output/
+/temp/
+/release/

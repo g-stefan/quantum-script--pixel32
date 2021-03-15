@@ -1,8 +1,0 @@
---lib qse-pixel32
---project-base=quantum-script-extension-pixel32
---source-is-separate
---use-project=quantum-script.static
---use-project=qse-random.static
---use-project=xyo-pixel32.static
---install-dev
---install-inc=quantum-script-extension
