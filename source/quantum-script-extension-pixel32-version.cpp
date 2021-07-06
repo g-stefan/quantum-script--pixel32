@@ -15,10 +15,10 @@ namespace Quantum {
 			namespace Pixel32 {
 				namespace Version {
 
-					static const char *version_ = "1.6.0";
-					static const char *build_ = "6";
-					static const char *versionWithBuild_ = "1.6.0.6";
-					static const char *datetime_ = "2021-03-15 12:30:23";
+					static const char *version_ = "1.7.0";
+					static const char *build_ = "7";
+					static const char *versionWithBuild_ = "1.7.0.7";
+					static const char *datetime_ = "2021-07-06 15:11:50";
 
 					const char *version() {
 						return version_;
