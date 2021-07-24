@@ -22,11 +22,14 @@ namespace Quantum {
 				using namespace XYO;
 				using namespace XYO::Pixel32;
 
-				const char *VariableKernel3X3::typeKernel3X3Key = "{AE109A67-0402-4A3F-B0D9-2E30C0E0A4F9}";
-				const void *VariableKernel3X3::typeKernel3X3;
+				XYO_DYNAMIC_TYPE_IMPLEMENT(VariableKernel3X3, "{AE109A67-0402-4A3F-B0D9-2E30C0E0A4F9}");
 				const char *VariableKernel3X3::strTypeKernel3X3 = "Pixel32.Kernel3X3";
 
-				String VariableKernel3X3::getType() {
+				VariableKernel3X3::VariableKernel3X3() {
+					XYO_DYNAMIC_TYPE_PUSH(VariableKernel3X3);
+				};
+
+				String VariableKernel3X3::getVariableType() {
 					return strTypeKernel3X3;
 				};
 
@@ -39,7 +42,7 @@ namespace Quantum {
 				};
 
 				bool VariableKernel3X3::isEqual(Variable *variable) {
-					if (variable->variableType == VariableKernel3X3::typeKernel3X3) {
+					if (TIsType<VariableKernel3X3>(variable)) {
 						return (kernel.value() == ((VariableKernel3X3 *)variable)->kernel.value());
 					};
 					return false;
@@ -51,15 +54,12 @@ namespace Quantum {
 					return (Variable *) retV;
 				};
 
-				Variable &VariableKernel3X3::operatorReference(Symbol symbolId) {
-					return operatorReferenceX(symbolId, (Extension::Pixel32::getContext())->prototypeKernel3X3->prototype);
-				};
-
 				Variable *VariableKernel3X3::instancePrototype() {
 					return (Extension::Pixel32::getContext())->prototypeKernel3X3->prototype;
 				};
 
 				void VariableKernel3X3::initMemory() {
+					Variable::initMemory();
 					TPointer<Kernel3X3>::initMemory();
 				};
 

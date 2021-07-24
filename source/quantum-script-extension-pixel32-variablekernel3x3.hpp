@@ -50,17 +50,14 @@ namespace Quantum {
 				class VariableKernel3X3 :
 					public Variable {
 						XYO_DISALLOW_COPY_ASSIGN_MOVE(VariableKernel3X3);
+						XYO_DYNAMIC_TYPE_DEFINE(QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT, VariableKernel3X3);
 					protected:
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT static const char *strTypeKernel3X3;
-						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT static const char *typeKernel3X3Key;
-						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT static const void *typeKernel3X3;
 					public:
 
 						TPointer<Kernel3X3> kernel;
 
-						inline VariableKernel3X3() {
-							variableType = registerType(typeKernel3X3, typeKernel3X3Key);
-						};
+						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT VariableKernel3X3();
 
 						inline void memoryPoolActiveDestructor() {
 							kernel.deleteMemory();
@@ -68,7 +65,7 @@ namespace Quantum {
 
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT static Variable *newVariable(Kernel3X3 *kernel_);
 
-						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT String getType();
+						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT String getVariableType();
 
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT Boolean toBoolean();
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT String toString();
@@ -78,15 +75,6 @@ namespace Quantum {
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT Variable *instancePrototype();
 
 						static void initMemory();
-
-						//
-						inline static bool isVariableKernel3X3(const Variable *value) {
-							if(typeKernel3X3 == nullptr) {
-								typeKernel3X3 = registerType(typeKernel3X3, typeKernel3X3Key);
-							};
-							return (value->variableType == typeKernel3X3);
-						};
-						//
 
 				};
 

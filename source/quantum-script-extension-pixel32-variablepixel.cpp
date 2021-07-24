@@ -22,11 +22,15 @@ namespace Quantum {
 				using namespace XYO;
 				using namespace XYO::Pixel32;
 
-				const char *VariablePixel::typePixelKey = "{AF0B4B0F-4D52-4340-A99B-4DA3D7EB76DD}";
-				const void *VariablePixel::typePixel;
+				XYO_DYNAMIC_TYPE_IMPLEMENT(VariablePixel, "{AF0B4B0F-4D52-4340-A99B-4DA3D7EB76DD}");
 				const char *VariablePixel::strTypePixel = "Pixel32.Pixel";
 
-				String VariablePixel::getType() {
+				VariablePixel::VariablePixel() {
+					XYO_DYNAMIC_TYPE_PUSH(VariablePixel);
+					pixel = 0x00000000;
+				};
+
+				String VariablePixel::getVariableType() {
 					return strTypePixel;
 				};
 
@@ -41,7 +45,7 @@ namespace Quantum {
 				};
 
 				bool VariablePixel::isEqual(Variable *variable) {
-					if (variable->variableType == VariablePixel::typePixel) {
+					if (TIsType<VariablePixel>(variable)) {
 						return pixel == ((VariablePixel *)variable)->pixel;
 					};
 					return false;
@@ -51,10 +55,6 @@ namespace Quantum {
 					VariablePixel *retV = TMemory<VariablePixel>::newMemory();
 					retV->pixel = pixel_;
 					return (Variable *) retV;
-				};
-
-				Variable &VariablePixel::operatorReference(Symbol symbolId) {
-					return operatorReferenceX(symbolId, (Extension::Pixel32::getContext())->prototypePixel->prototype);
 				};
 
 				Variable *VariablePixel::instancePrototype() {

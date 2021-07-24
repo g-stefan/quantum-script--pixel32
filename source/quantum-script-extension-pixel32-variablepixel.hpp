@@ -51,19 +51,13 @@ namespace Quantum {
 				class VariablePixel :
 					public Variable {
 						XYO_DISALLOW_COPY_ASSIGN_MOVE(VariablePixel);
+						XYO_DYNAMIC_TYPE_DEFINE(QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT, VariablePixel);
 					protected:
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT static const char *strTypePixel;
-						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT static const char *typePixelKey;
-						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT static const void *typePixel;
 					public:
-
-
 						Pixel pixel;
 
-						inline VariablePixel() {
-							variableType = registerType(typePixel, typePixelKey);
-							pixel = 0x00000000;
-						};
+						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT VariablePixel();
 
 						inline void memoryPoolActiveConstructor() {
 							pixel = 0x00000000;
@@ -71,23 +65,13 @@ namespace Quantum {
 
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT static Variable *newVariable(Pixel pixel_);
 
-						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT String getType();
+						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT String getVariableType();
 
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT Boolean toBoolean();
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT String toString();
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT bool isEqual(Variable *variable);
 
-						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT Variable &operatorReference(Symbol symbolId);
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT Variable *instancePrototype();
-
-						//
-						inline static bool isVariablePixel(const Variable *value) {
-							if(typePixel == nullptr) {
-								typePixel = registerType(typePixel, typePixelKey);
-							};
-							return (value->variableType == typePixel);
-						};
-						//
 
 				};
 

@@ -23,11 +23,14 @@ namespace Quantum {
 				using namespace XYO::Pixel32;
 
 
-				const char *VariableImage::typeImageKey = "{E08EA60C-268F-4D99-B5E1-F449ACDEA6A7}";
-				const void *VariableImage::typeImage;
+				XYO_DYNAMIC_TYPE_IMPLEMENT(VariableImage, "{E08EA60C-268F-4D99-B5E1-F449ACDEA6A7}");
 				const char *VariableImage::strTypeImage = "Pixel32.Image";
 
-				String VariableImage::getType() {
+				VariableImage::VariableImage() {
+					XYO_DYNAMIC_TYPE_PUSH(VariableImage);
+				};
+
+				String VariableImage::getVariableType() {
 					return strTypeImage;
 				};
 
@@ -40,7 +43,7 @@ namespace Quantum {
 				};
 
 				bool VariableImage::isEqual(Variable *variable) {
-					if (variable->variableType == VariableImage::typeImage) {
+					if (TIsType<VariableImage>(variable)) {
 						return (image.value() == ((VariableImage *)variable)->image.value());
 					};
 					return false;
@@ -52,15 +55,12 @@ namespace Quantum {
 					return (Variable *) retV;
 				};
 
-				Variable &VariableImage::operatorReference(Symbol symbolId) {
-					return operatorReferenceX(symbolId, (Extension::Pixel32::getContext())->prototypeImage->prototype);
-				};
-
 				Variable *VariableImage::instancePrototype() {
 					return (Extension::Pixel32::getContext())->prototypeImage->prototype;
 				};
 
 				void VariableImage::initMemory() {
+					Variable::initMemory();
 					TPointer<Image>::initMemory();
 				};
 
