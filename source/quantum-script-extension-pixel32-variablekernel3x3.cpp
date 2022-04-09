@@ -51,7 +51,7 @@ namespace Quantum {
 				Variable *VariableKernel3X3::newVariable(Kernel3X3 *kernel_) {
 					VariableKernel3X3 *retV = TMemory<VariableKernel3X3>::newMemory();
 					retV->kernel = kernel_;
-					return (Variable *) retV;
+					return (Variable *)retV;
 				};
 
 				Variable *VariableKernel3X3::instancePrototype() {
@@ -67,4 +67,3 @@ namespace Quantum {
 		};
 	};
 };
-

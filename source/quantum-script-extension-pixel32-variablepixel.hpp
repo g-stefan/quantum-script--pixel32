@@ -11,11 +11,11 @@
 #define QUANTUM_SCRIPT_EXTENSION_PIXEL32_VARIABLEPIXEL_HPP
 
 #ifndef QUANTUM_SCRIPT_EXTENSION_PIXEL32_HPP
-#include "quantum-script-extension-pixel32.hpp"
+#	include "quantum-script-extension-pixel32.hpp"
 #endif
 
 #ifndef XYO_PIXEL32_HPP
-#include "xyo-pixel32.hpp"
+#	include "xyo-pixel32.hpp"
 #endif
 
 namespace Quantum {
@@ -32,12 +32,10 @@ namespace Quantum {
 
 namespace XYO {
 	namespace ManagedMemory {
-		template<>
-		class TMemory<Quantum::Script::Extension::Pixel32::VariablePixel32>:
-			public TMemoryPoolActive<Quantum::Script::Extension::Pixel32::VariablePixel32> {};
+		template <>
+		class TMemory<Quantum::Script::Extension::Pixel32::VariablePixel32> : public TMemoryPoolActive<Quantum::Script::Extension::Pixel32::VariablePixel32> {};
 	};
 };
-
 
 namespace Quantum {
 	namespace Script {
@@ -48,12 +46,13 @@ namespace Quantum {
 
 				using namespace XYO::Pixel32;
 
-				class VariablePixel :
-					public Variable {
+				class VariablePixel : public Variable {
 						XYO_DISALLOW_COPY_ASSIGN_MOVE(VariablePixel);
 						XYO_DYNAMIC_TYPE_DEFINE(QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT, VariablePixel);
+
 					protected:
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT static const char *strTypePixel;
+
 					public:
 						Pixel pixel;
 
@@ -72,10 +71,7 @@ namespace Quantum {
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT bool isEqual(Variable *variable);
 
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT Variable *instancePrototype();
-
 				};
-
-
 
 			};
 		};
@@ -83,4 +79,3 @@ namespace Quantum {
 };
 
 #endif
-

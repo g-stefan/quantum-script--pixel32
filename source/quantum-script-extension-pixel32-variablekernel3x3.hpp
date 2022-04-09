@@ -11,11 +11,11 @@
 #define QUANTUM_SCRIPT_EXTENSION_PIXEL32_VARIABLEKERNEL3X3_HPP
 
 #ifndef QUANTUM_SCRIPT_EXTENSION_PIXEL32_HPP
-#include "quantum-script-extension-pixel32.hpp"
+#	include "quantum-script-extension-pixel32.hpp"
 #endif
 
 #ifndef XYO_PIXEL32_HPP
-#include "xyo-pixel32.hpp"
+#	include "xyo-pixel32.hpp"
 #endif
 
 namespace Quantum {
@@ -32,12 +32,10 @@ namespace Quantum {
 
 namespace XYO {
 	namespace ManagedMemory {
-		template<>
-		class TMemory<Quantum::Script::Extension::Pixel32::VariableKernel3X3>:
-			public TMemoryPoolActive<Quantum::Script::Extension::Pixel32::VariableKernel3X3> {};
+		template <>
+		class TMemory<Quantum::Script::Extension::Pixel32::VariableKernel3X3> : public TMemoryPoolActive<Quantum::Script::Extension::Pixel32::VariableKernel3X3> {};
 	};
 };
-
 
 namespace Quantum {
 	namespace Script {
@@ -47,14 +45,14 @@ namespace Quantum {
 				using namespace XYO;
 				using namespace XYO::Pixel32;
 
-				class VariableKernel3X3 :
-					public Variable {
+				class VariableKernel3X3 : public Variable {
 						XYO_DISALLOW_COPY_ASSIGN_MOVE(VariableKernel3X3);
 						XYO_DYNAMIC_TYPE_DEFINE(QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT, VariableKernel3X3);
+
 					protected:
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT static const char *strTypeKernel3X3;
-					public:
 
+					public:
 						TPointer<Kernel3X3> kernel;
 
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT VariableKernel3X3();
@@ -75,7 +73,6 @@ namespace Quantum {
 						QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT Variable *instancePrototype();
 
 						static void initMemory();
-
 				};
 
 			};
@@ -84,4 +81,3 @@ namespace Quantum {
 };
 
 #endif
-

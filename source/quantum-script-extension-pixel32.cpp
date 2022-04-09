@@ -13,9 +13,9 @@
 #include <math.h>
 
 #ifdef XYO_OS_TYPE_WIN
-#ifdef XYO_MEMORY_LEAK_DETECTOR
-#include "vld.h"
-#endif
+#	ifdef XYO_MEMORY_LEAK_DETECTOR
+#		include "vld.h"
+#	endif
 #endif
 
 #include "quantum-script-extension-pixel32-license.hpp"
@@ -24,7 +24,7 @@
 #include "quantum-script-extension-pixel32-variableimage.hpp"
 #include "quantum-script-extension-pixel32-variablekernel3x3.hpp"
 #ifndef QUANTUM_SCRIPT_EXTENSION_PIXEL32_NO_VERSION
-#include "quantum-script-extension-pixel32-version.hpp"
+#	include "quantum-script-extension-pixel32-version.hpp"
 #endif
 
 #include "quantum-script-variablenull.hpp"
@@ -69,18 +69,18 @@ namespace Quantum {
 					printf("- pixel32-pixel\n");
 #endif
 					TPointerX<Variable> &rx = arguments->index(0);
-					if(TIsTypeExact<VariableUndefined>(rx)) {
+					if (TIsTypeExact<VariableUndefined>(rx)) {
 						return VariablePixel::newVariable(0);
 					};
-					if(TIsType<VariableNull>(rx)) {
+					if (TIsType<VariableNull>(rx)) {
 						return VariablePixel::newVariable(0);
 					};
-					if(TIsType<VariableString>(rx)) {
+					if (TIsType<VariableString>(rx)) {
 						uint32_t r_;
 						uint32_t g_;
 						uint32_t b_;
 						uint32_t a_;
-						if(sscanf((char *)(((VariableString *)(rx.value()))->value.value()), "%02X%02X%02X%02X", &r_, &g_, &b_, &a_) != 4){
+						if (sscanf((char *)(((VariableString *)(rx.value()))->value.value()), "%02X%02X%02X%02X", &r_, &g_, &b_, &a_) != 4) {
 							r_ = 0;
 							g_ = 0;
 							b_ = 0;
@@ -99,25 +99,25 @@ namespace Quantum {
 					Integer b;
 					Integer a;
 
-					if(isnan(r_) || isinf(r_) || signbit(r_)) {
+					if (isnan(r_) || isinf(r_) || signbit(r_)) {
 						r = 0;
 					} else {
 						r = (Integer)r_;
 					};
 
-					if(isnan(g_) || isinf(g_) || signbit(g_)) {
+					if (isnan(g_) || isinf(g_) || signbit(g_)) {
 						g = 0;
 					} else {
 						g = (Integer)g_;
 					};
 
-					if(isnan(b_) || isinf(b_) || signbit(b_)) {
+					if (isnan(b_) || isinf(b_) || signbit(b_)) {
 						b = 0;
 					} else {
 						b = (Integer)b_;
 					};
 
-					if(isnan(a_) || isinf(a_) || signbit(a_)) {
+					if (isnan(a_) || isinf(a_) || signbit(a_)) {
 						a = 0;
 					} else {
 						a = (Integer)a_;
@@ -134,12 +134,12 @@ namespace Quantum {
 					Number w_ = (arguments->index(0))->toNumber();
 					Number h_ = (arguments->index(1))->toNumber();
 
-					if(!(isnan(w_) || isinf(w_) || signbit(w_))) {
-						if(!(isnan(h_) || isinf(h_) || signbit(h_))) {
+					if (!(isnan(w_) || isinf(w_) || signbit(w_))) {
+						if (!(isnan(h_) || isinf(h_) || signbit(h_))) {
 							Integer w = w_;
 							Integer h = h_;
 							TPointer<Image> image = Pixel32Process::create(w, h);
-							if(image) {
+							if (image) {
 								return VariableImage::newVariable(image.value());
 							};
 						};
@@ -154,7 +154,6 @@ namespace Quantum {
 #endif
 					return VariableKernel3X3::newVariable(TMemory<Pixel32::Kernel3X3>::newMemory());
 				};
-
 
 				static void deleteContext() {
 					Pixel32Context *pixel32Context = getContext();
@@ -173,14 +172,14 @@ namespace Quantum {
 					executive->setExtensionDeleteContext(extensionId, deleteContext);
 
 					// Pixel32={};
-					(Context::getGlobalObject())->setPropertyBySymbol(symbolPixel32,VariableObject::newVariable());
+					(Context::getGlobalObject())->setPropertyBySymbol(symbolPixel32, VariableObject::newVariable());
 
 					// Pixel32.Pixel=function(){};
 					pixel32Context->symbolFunctionPixel = Context::getSymbol("Pixel");
 					pixel32Context->prototypePixel.newMemory();
 
 					defaultPrototypeFunction = (VariableFunction *)VariableFunction::newVariable(NULL, NULL, NULL, functionPixel, NULL, NULL);
-					((Context::getGlobalObject())->getPropertyBySymbol(symbolPixel32))->setPropertyBySymbol(pixel32Context->symbolFunctionPixel,defaultPrototypeFunction);
+					((Context::getGlobalObject())->getPropertyBySymbol(symbolPixel32))->setPropertyBySymbol(pixel32Context->symbolFunctionPixel, defaultPrototypeFunction);
 					pixel32Context->prototypePixel = defaultPrototypeFunction->prototype;
 
 					// Pixel32.Image=function(){};
@@ -188,7 +187,7 @@ namespace Quantum {
 					pixel32Context->prototypeImage.newMemory();
 
 					defaultPrototypeFunction = (VariableFunction *)VariableFunction::newVariable(NULL, NULL, NULL, functionImage, NULL, NULL);
-					((Context::getGlobalObject())->getPropertyBySymbol(symbolPixel32))->setPropertyBySymbol(pixel32Context->symbolFunctionImage,defaultPrototypeFunction);
+					((Context::getGlobalObject())->getPropertyBySymbol(symbolPixel32))->setPropertyBySymbol(pixel32Context->symbolFunctionImage, defaultPrototypeFunction);
 					pixel32Context->prototypeImage = defaultPrototypeFunction->prototype;
 
 					// Pixel32.Kernel3X3=function(){};
@@ -196,7 +195,7 @@ namespace Quantum {
 					pixel32Context->prototypeKernel3X3.newMemory();
 
 					defaultPrototypeFunction = (VariableFunction *)VariableFunction::newVariable(NULL, NULL, NULL, functionKernel3X3, NULL, NULL);
-					((Context::getGlobalObject())->getPropertyBySymbol(symbolPixel32))->setPropertyBySymbol(pixel32Context->symbolFunctionKernel3X3,defaultPrototypeFunction);
+					((Context::getGlobalObject())->getPropertyBySymbol(symbolPixel32))->setPropertyBySymbol(pixel32Context->symbolFunctionKernel3X3, defaultPrototypeFunction);
 					pixel32Context->prototypeKernel3X3 = defaultPrototypeFunction->prototype;
 				};
 
@@ -205,7 +204,7 @@ namespace Quantum {
 					printf("- pixel32-pixel-get-r\n");
 #endif
 
-					if(!TIsType<VariablePixel>(this_)) {
+					if (!TIsType<VariablePixel>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -217,7 +216,7 @@ namespace Quantum {
 					printf("- pixel32-pixel-get-g\n");
 #endif
 
-					if(!TIsType<VariablePixel>(this_)) {
+					if (!TIsType<VariablePixel>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -228,7 +227,7 @@ namespace Quantum {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-pixel-get-b\n");
 #endif
-					if(!TIsType<VariablePixel>(this_)) {
+					if (!TIsType<VariablePixel>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -240,7 +239,7 @@ namespace Quantum {
 					printf("- pixel32-pixel-get-a\n");
 #endif
 
-					if(!TIsType<VariablePixel>(this_)) {
+					if (!TIsType<VariablePixel>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -252,12 +251,12 @@ namespace Quantum {
 					printf("- pixel32-pixel-set-r\n");
 #endif
 
-					if(!TIsType<VariablePixel>(this_)) {
+					if (!TIsType<VariablePixel>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					Number tmp = (arguments->index(0))->toNumber();
-					if(!(isnan(tmp) || isinf(tmp) || signbit(tmp))) {
+					if (!(isnan(tmp) || isinf(tmp) || signbit(tmp))) {
 						XYO_PIXEL32_CHANGE_R(((VariablePixel *)(this_))->pixel, ((Integer)tmp));
 					};
 
@@ -269,12 +268,12 @@ namespace Quantum {
 					printf("- pixel32-pixel-set-g\n");
 #endif
 
-					if(!TIsType<VariablePixel>(this_)) {
+					if (!TIsType<VariablePixel>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					Number tmp = (arguments->index(0))->toNumber();
-					if(!(isnan(tmp) || isinf(tmp) || signbit(tmp))) {
+					if (!(isnan(tmp) || isinf(tmp) || signbit(tmp))) {
 						XYO_PIXEL32_CHANGE_G(((VariablePixel *)(this_))->pixel, ((Integer)tmp));
 					};
 
@@ -286,13 +285,12 @@ namespace Quantum {
 					printf("- pixel32-pixel-set-b\n");
 #endif
 
-					if(!TIsType<VariablePixel>(this_)) {
+					if (!TIsType<VariablePixel>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
-
 					Number tmp = (arguments->index(0))->toNumber();
-					if(!(isnan(tmp) || isinf(tmp) || signbit(tmp))) {
+					if (!(isnan(tmp) || isinf(tmp) || signbit(tmp))) {
 						XYO_PIXEL32_CHANGE_B(((VariablePixel *)(this_))->pixel, ((Integer)tmp));
 					};
 
@@ -304,13 +302,12 @@ namespace Quantum {
 					printf("- pixel32-pixel-set-a\n");
 #endif
 
-
-					if(!TIsType<VariablePixel>(this_)) {
+					if (!TIsType<VariablePixel>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					Number tmp = (arguments->index(0))->toNumber();
-					if(!(isnan(tmp) || isinf(tmp) || signbit(tmp))) {
+					if (!(isnan(tmp) || isinf(tmp) || signbit(tmp))) {
 						XYO_PIXEL32_CHANGE_A(((VariablePixel *)(this_))->pixel, ((Integer)tmp));
 					};
 
@@ -323,7 +320,7 @@ namespace Quantum {
 #endif
 
 					TPointer<Image> image = Pixel32Process::pngLoad((char *)(((arguments->index(0))->toString()).value()));
-					if(image) {
+					if (image) {
 						return VariableImage::newVariable(image.value());
 					};
 					return Context::getValueUndefined();
@@ -334,7 +331,7 @@ namespace Quantum {
 					printf("- pixel32-image-png-save\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -346,7 +343,7 @@ namespace Quantum {
 					printf("- pixel32-image-get-width\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -358,7 +355,7 @@ namespace Quantum {
 					printf("- pixel32-image-get-height\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -370,21 +367,19 @@ namespace Quantum {
 					printf("- pixel32-image-get-pixel\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					Number x = (arguments->index(0))->toNumber();
 					Number y = (arguments->index(1))->toNumber();
-					if((!(isnan(x) || isinf(x) || signbit(x))) &&
-						(!(isnan(y) || isinf(y) || signbit(y)))) {
+					if ((!(isnan(x) || isinf(x) || signbit(x))) &&
+					    (!(isnan(y) || isinf(y) || signbit(y)))) {
 
 						return VariablePixel::newVariable(
-								Pixel32Process::getPixel(((VariableImage *)(this_))->image,
-									(Integer)x,
-									(Integer)y
-								));
-
+						    Pixel32Process::getPixel(((VariableImage *)(this_))->image,
+						                             (Integer)x,
+						                             (Integer)y));
 					};
 
 					return VariablePixel::newVariable(0);
@@ -395,21 +390,19 @@ namespace Quantum {
 					printf("- pixel32-image-get-pixel-x\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					Number x = (arguments->index(0))->toNumber();
 					Number y = (arguments->index(1))->toNumber();
-					if((!(isnan(x) || isinf(x) || signbit(x))) &&
-						(!(isnan(y) || isinf(y) || signbit(y)))) {
+					if ((!(isnan(x) || isinf(x) || signbit(x))) &&
+					    (!(isnan(y) || isinf(y) || signbit(y)))) {
 
 						return VariablePixel::newVariable(
-								Pixel32Process::getPixelX(((VariableImage *)(this_))->image,
-									(Integer)x,
-									(Integer)y
-								));
-
+						    Pixel32Process::getPixelX(((VariableImage *)(this_))->image,
+						                              (Integer)x,
+						                              (Integer)y));
 					};
 
 					return VariablePixel::newVariable(0);
@@ -420,51 +413,45 @@ namespace Quantum {
 					printf("- pixel32-image-set-pixel\n");
 #endif
 
-
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
-
 					Number x = (arguments->index(0))->toNumber();
 					Number y = (arguments->index(1))->toNumber();
-					if((!(isnan(x) || isinf(x) || signbit(x))) &&
-						(!(isnan(y) || isinf(y) || signbit(y)))) {
-
+					if ((!(isnan(x) || isinf(x) || signbit(x))) &&
+					    (!(isnan(y) || isinf(y) || signbit(y)))) {
 
 						TPointerX<Variable> &pixel = arguments->index(2);
-						if(TIsType<VariablePixel>(pixel)) {
+						if (TIsType<VariablePixel>(pixel)) {
 							Pixel32Process::setPixel(
-								((VariableImage *)(this_))->image,
-								(Integer)x,
-								(Integer)y,
-								((VariablePixel *)(pixel.value()))->pixel
-							);
+							    ((VariableImage *)(this_))->image,
+							    (Integer)x,
+							    (Integer)y,
+							    ((VariablePixel *)(pixel.value()))->pixel);
 						};
 					};
 					return Context::getValueUndefined();
 				};
-
 
 				static TPointer<Variable> imageScaleUpBicubic(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-image-scale-up-bicubic\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					Number x = (arguments->index(0))->toNumber();
 					Number y = (arguments->index(1))->toNumber();
-					if((!(isnan(x) || isinf(x) || signbit(x))) &&
-						(!(isnan(y) || isinf(y) || signbit(y)))) {
+					if ((!(isnan(x) || isinf(x) || signbit(x))) &&
+					    (!(isnan(y) || isinf(y) || signbit(y)))) {
 
 						TPointer<Image> image = Pixel32Process::scaleUpBicubic(((VariableImage *)(this_))->image, (Integer)x, (Integer)y);
-						if(image) {
+						if (image) {
 							return VariableImage::newVariable(image.value());
 						};
-
 					};
 					return Context::getValueUndefined();
 				};
@@ -474,22 +461,19 @@ namespace Quantum {
 					printf("- pixel32-image-scale-up-bilinear\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
-
 					Number x = (arguments->index(0))->toNumber();
 					Number y = (arguments->index(1))->toNumber();
-					if((!(isnan(x) || isinf(x) || signbit(x))) &&
-						(!(isnan(y) || isinf(y) || signbit(y)))) {
+					if ((!(isnan(x) || isinf(x) || signbit(x))) &&
+					    (!(isnan(y) || isinf(y) || signbit(y)))) {
 
 						TPointer<Image> image = Pixel32Process::scaleUpBilinear(((VariableImage *)(this_))->image, (Integer)x, (Integer)y);
-						if(image) {
+						if (image) {
 							return VariableImage::newVariable(image.value());
 						};
-
-
 					};
 					return Context::getValueUndefined();
 				};
@@ -499,22 +483,19 @@ namespace Quantum {
 					printf("- pixel32-image-scale-up-nearest-neighbor\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
-
 					Number x = (arguments->index(0))->toNumber();
 					Number y = (arguments->index(1))->toNumber();
-					if((!(isnan(x) || isinf(x) || signbit(x))) &&
-						(!(isnan(y) || isinf(y) || signbit(y)))) {
+					if ((!(isnan(x) || isinf(x) || signbit(x))) &&
+					    (!(isnan(y) || isinf(y) || signbit(y)))) {
 
 						TPointer<Image> image = Pixel32Process::scaleUpNearestNeighbor(((VariableImage *)(this_))->image, (Integer)x, (Integer)y);
-						if(image) {
+						if (image) {
 							return VariableImage::newVariable(image.value());
 						};
-
-
 					};
 					return Context::getValueUndefined();
 				};
@@ -524,12 +505,12 @@ namespace Quantum {
 					printf("- pixel32-image-scale-down-x-2\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointer<Image> image = Pixel32Process::scaleDownX2(((VariableImage *)(this_))->image);
-					if(image) {
+					if (image) {
 						return VariableImage::newVariable(image.value());
 					};
 					return Context::getValueUndefined();
@@ -540,12 +521,12 @@ namespace Quantum {
 					printf("- pixel32-image-scale-down-x-2-on-x\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointer<Image> image = Pixel32Process::scaleDownX2OnX(((VariableImage *)(this_))->image);
-					if(image) {
+					if (image) {
 						return VariableImage::newVariable(image.value());
 					};
 					return Context::getValueUndefined();
@@ -556,39 +537,35 @@ namespace Quantum {
 					printf("- pixel32-image-scale-down-x-2-on-y\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointer<Image> image = Pixel32Process::scaleDownX2OnY(((VariableImage *)(this_))->image);
-					if(image) {
+					if (image) {
 						return VariableImage::newVariable(image.value());
 					};
 					return Context::getValueUndefined();
 				};
-
 
 				static TPointer<Variable> imageScaleDown(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-image-scale-down\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
-
 					Number x = (arguments->index(0))->toNumber();
 					Number y = (arguments->index(1))->toNumber();
-					if((!(isnan(x) || isinf(x) || signbit(x))) &&
-						(!(isnan(y) || isinf(y) || signbit(y)))) {
+					if ((!(isnan(x) || isinf(x) || signbit(x))) &&
+					    (!(isnan(y) || isinf(y) || signbit(y)))) {
 
 						TPointer<Image> image = Pixel32Process::scaleDown(((VariableImage *)(this_))->image, (Integer)x, (Integer)y);
-						if(image) {
+						if (image) {
 							return VariableImage::newVariable(image.value());
 						};
-
-
 					};
 					return Context::getValueUndefined();
 				};
@@ -598,22 +575,19 @@ namespace Quantum {
 					printf("- pixel32-image-scale-up\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					Number x = (arguments->index(0))->toNumber();
 					Number y = (arguments->index(1))->toNumber();
-					if((!(isnan(x) || isinf(x) || signbit(x))) &&
-						(!(isnan(y) || isinf(y) || signbit(y)))) {
-
+					if ((!(isnan(x) || isinf(x) || signbit(x))) &&
+					    (!(isnan(y) || isinf(y) || signbit(y)))) {
 
 						TPointer<Image> image = Pixel32Process::scaleUp(((VariableImage *)(this_))->image, (Integer)x, (Integer)y);
-						if(image) {
+						if (image) {
 							return VariableImage::newVariable(image.value());
 						};
-
-
 					};
 					return Context::getValueUndefined();
 				};
@@ -623,90 +597,79 @@ namespace Quantum {
 					printf("- pixel32-image-resize\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					Number x = (arguments->index(0))->toNumber();
 					Number y = (arguments->index(1))->toNumber();
-					if((!(isnan(x) || isinf(x) || signbit(x))) &&
-						(!(isnan(y) || isinf(y) || signbit(y)))) {
+					if ((!(isnan(x) || isinf(x) || signbit(x))) &&
+					    (!(isnan(y) || isinf(y) || signbit(y)))) {
 
 						TPointer<Image> image = Pixel32Process::resize(((VariableImage *)(this_))->image, (Integer)x, (Integer)y);
-						if(image) {
+						if (image) {
 							return VariableImage::newVariable(image.value());
 						};
-
 					};
 
 					return Context::getValueUndefined();
 				};
-
 
 				static TPointer<Variable> imageCut(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-image-cut\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
-
 
 					Number sx = (arguments->index(0))->toNumber();
 					Number sy = (arguments->index(1))->toNumber();
 					Number lx = (arguments->index(2))->toNumber();
 					Number ly = (arguments->index(3))->toNumber();
 
-					if((!(isnan(sx) || isinf(sx) || signbit(sx))) &&
-						(!(isnan(sy) || isinf(sy) || signbit(sy))) &&
-						(!(isnan(lx) || isinf(lx) || signbit(lx))) &&
-						(!(isnan(ly) || isinf(ly) || signbit(ly)))) {
-
+					if ((!(isnan(sx) || isinf(sx) || signbit(sx))) &&
+					    (!(isnan(sy) || isinf(sy) || signbit(sy))) &&
+					    (!(isnan(lx) || isinf(lx) || signbit(lx))) &&
+					    (!(isnan(ly) || isinf(ly) || signbit(ly)))) {
 
 						TPointer<Image> image = Pixel32Process::cut(((VariableImage *)(this_))->image,
-								(Integer)sx,
-								(Integer)sy,
-								(Integer)lx,
-								(Integer)ly
-							);
-						if(image) {
+						                                            (Integer)sx,
+						                                            (Integer)sy,
+						                                            (Integer)lx,
+						                                            (Integer)ly);
+						if (image) {
 							return VariableImage::newVariable(image.value());
 						};
-
-
 					};
 					return Context::getValueUndefined();
 				};
-
 
 				static TPointer<Variable> imageClear(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-image-clear\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointerX<Variable> &pixel = arguments->index(0);
-					if(TIsType<VariablePixel>(pixel)) {
+					if (TIsType<VariablePixel>(pixel)) {
 
 						Pixel32Process::clear(((VariableImage *)(this_))->image,
-							((VariablePixel *)(pixel.value()))->pixel
-						);
-
+						                      ((VariablePixel *)(pixel.value()))->pixel);
 					};
 					return Context::getValueUndefined();
 				};
-
 
 				static TPointer<Variable> imageCopy(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-image-copy\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -717,58 +680,49 @@ namespace Quantum {
 					Number lx = (arguments->index(5))->toNumber();
 					Number ly = (arguments->index(6))->toNumber();
 
-					if((!(isnan(dx) || isinf(dx) || signbit(dx))) &&
-						(!(isnan(dy) || isinf(dy) || signbit(dy))) &&
-						(!(isnan(sx) || isinf(sx) || signbit(sx))) &&
-						(!(isnan(sy) || isinf(sy) || signbit(sy))) &&
-						(!(isnan(lx) || isinf(lx) || signbit(lx))) &&
-						(!(isnan(ly) || isinf(ly) || signbit(ly)))) {
-
+					if ((!(isnan(dx) || isinf(dx) || signbit(dx))) &&
+					    (!(isnan(dy) || isinf(dy) || signbit(dy))) &&
+					    (!(isnan(sx) || isinf(sx) || signbit(sx))) &&
+					    (!(isnan(sy) || isinf(sy) || signbit(sy))) &&
+					    (!(isnan(lx) || isinf(lx) || signbit(lx))) &&
+					    (!(isnan(ly) || isinf(ly) || signbit(ly)))) {
 
 						TPointerX<Variable> &imageIn2 = arguments->index(0);
-						if(TIsType<VariableImage>(imageIn2)) {
+						if (TIsType<VariableImage>(imageIn2)) {
 
 							Pixel32Process::copy(((VariableImage *)(this_))->image,
-								((VariableImage *)(imageIn2.value()))->image,
-								(Integer)dx,
-								(Integer)dy,
-								(Integer)sx,
-								(Integer)sy,
-								(Integer)lx,
-								(Integer)ly
-							);
-
+							                     ((VariableImage *)(imageIn2.value()))->image,
+							                     (Integer)dx,
+							                     (Integer)dy,
+							                     (Integer)sx,
+							                     (Integer)sy,
+							                     (Integer)lx,
+							                     (Integer)ly);
 						};
-
 					};
 					return Context::getValueUndefined();
 				};
-
 
 				static TPointer<Variable> imageWrap(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-image-wrap\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
-
 					Number lx = (arguments->index(0))->toNumber();
 					Number ly = (arguments->index(1))->toNumber();
-					if((!(isnan(lx) || isinf(lx) || signbit(lx))) &&
-						(!(isnan(ly) || isinf(ly) || signbit(ly)))) {
-
+					if ((!(isnan(lx) || isinf(lx) || signbit(lx))) &&
+					    (!(isnan(ly) || isinf(ly) || signbit(ly)))) {
 
 						TPointer<Image> image = Pixel32Process::wrap(((VariableImage *)(this_))->image,
-								(Integer)lx,
-								(Integer)ly
-							);
-						if(image) {
+						                                             (Integer)lx,
+						                                             (Integer)ly);
+						if (image) {
 							return VariableImage::newVariable(image.value());
 						};
-
 					};
 
 					return Context::getValueUndefined();
@@ -779,40 +733,34 @@ namespace Quantum {
 					printf("- pixel32-image-wrap-box\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
-
 					Number lx = (arguments->index(0))->toNumber();
 					Number ly = (arguments->index(1))->toNumber();
-					if((!(isnan(lx) || isinf(lx) || signbit(lx))) &&
-						(!(isnan(ly) || isinf(ly) || signbit(ly)))) {
-
+					if ((!(isnan(lx) || isinf(lx) || signbit(lx))) &&
+					    (!(isnan(ly) || isinf(ly) || signbit(ly)))) {
 
 						TPointer<Image> image = Pixel32Process::wrapBox(((VariableImage *)(this_))->image,
-								(Integer)lx,
-								(Integer)ly
-							);
-						if(image) {
+						                                                (Integer)lx,
+						                                                (Integer)ly);
+						if (image) {
 							return VariableImage::newVariable(image.value());
 						};
-
 					};
 
 					return Context::getValueUndefined();
 				};
-
 
 				static TPointer<Variable> imageBlend(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-image-blend\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
-
 
 					Number dx = (arguments->index(1))->toNumber();
 					Number dy = (arguments->index(2))->toNumber();
@@ -821,50 +769,43 @@ namespace Quantum {
 					Number lx = (arguments->index(5))->toNumber();
 					Number ly = (arguments->index(6))->toNumber();
 
-					if((!(isnan(dx) || isinf(dx) || signbit(dx))) &&
-						(!(isnan(dy) || isinf(dy) || signbit(dy))) &&
-						(!(isnan(sx) || isinf(sx) || signbit(sx))) &&
-						(!(isnan(sy) || isinf(sy) || signbit(sy))) &&
-						(!(isnan(lx) || isinf(lx) || signbit(lx))) &&
-						(!(isnan(ly) || isinf(ly) || signbit(ly)))) {
+					if ((!(isnan(dx) || isinf(dx) || signbit(dx))) &&
+					    (!(isnan(dy) || isinf(dy) || signbit(dy))) &&
+					    (!(isnan(sx) || isinf(sx) || signbit(sx))) &&
+					    (!(isnan(sy) || isinf(sy) || signbit(sy))) &&
+					    (!(isnan(lx) || isinf(lx) || signbit(lx))) &&
+					    (!(isnan(ly) || isinf(ly) || signbit(ly)))) {
 
 						TPointerX<Variable> &imageIn2 = arguments->index(0);
-						if(TIsType<VariableImage>(imageIn2)) {
+						if (TIsType<VariableImage>(imageIn2)) {
 
 							Pixel32Process::blend(((VariableImage *)(this_))->image,
-								((VariableImage *)(imageIn2.value()))->image,
-								(Integer)dx,
-								(Integer)dy,
-								(Integer)sx,
-								(Integer)sy,
-								(Integer)lx,
-								(Integer)ly
-							);
-
+							                      ((VariableImage *)(imageIn2.value()))->image,
+							                      (Integer)dx,
+							                      (Integer)dy,
+							                      (Integer)sx,
+							                      (Integer)sy,
+							                      (Integer)lx,
+							                      (Integer)ly);
 						};
-
-
 					};
 					return Context::getValueUndefined();
 				};
-
 
 				static TPointer<Variable> imageNoise(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-image-noise\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointerX<Variable> &random = arguments->index(0);
-					if(TIsType<VariableRandom>(random)) {
+					if (TIsType<VariableRandom>(random)) {
 
 						Pixel32Process::noise(((VariableImage *)(this_))->image,
-							((VariableRandom *)(random.value()))->value
-						);
-
+						                      ((VariableRandom *)(random.value()))->value);
 					};
 					return Context::getValueUndefined();
 				};
@@ -874,29 +815,25 @@ namespace Quantum {
 					printf("- pixel32-image-noise-2-bit\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointerX<Variable> &random = arguments->index(0);
-					if(TIsType<VariableRandom>(random)) {
-
+					if (TIsType<VariableRandom>(random)) {
 
 						Pixel32Process::noise2Bit(((VariableImage *)(this_))->image,
-							((VariableRandom *)(random.value()))->value
-						);
-
+						                          ((VariableRandom *)(random.value()))->value);
 					};
 					return Context::getValueUndefined();
 				};
-
 
 				static TPointer<Variable> imageDrawRectangle(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-image-draw-rectangle\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -905,35 +842,30 @@ namespace Quantum {
 					Number lx = (arguments->index(2))->toNumber();
 					Number ly = (arguments->index(3))->toNumber();
 
-					if((!(isnan(sx) || isinf(sx))) &&
-						(!(isnan(sy) || isinf(sy))) &&
-						(!(isnan(lx) || isinf(lx))) &&
-						(!(isnan(ly) || isinf(ly)))) {
-
+					if ((!(isnan(sx) || isinf(sx))) &&
+					    (!(isnan(sy) || isinf(sy))) &&
+					    (!(isnan(lx) || isinf(lx))) &&
+					    (!(isnan(ly) || isinf(ly)))) {
 
 						TPointerX<Variable> &pixel = arguments->index(4);
-						if(TIsType<VariablePixel>(pixel)) {
+						if (TIsType<VariablePixel>(pixel)) {
 							Pixel32Process::drawRectangle(((VariableImage *)(this_))->image,
-								(Integer)sx,
-								(Integer)sy,
-								(Integer)lx,
-								(Integer)ly,
-								((VariablePixel *)(pixel.value()))->pixel
-							);
+							                              (Integer)sx,
+							                              (Integer)sy,
+							                              (Integer)lx,
+							                              (Integer)ly,
+							                              ((VariablePixel *)(pixel.value()))->pixel);
 						};
-
-
 					};
 					return Context::getValueUndefined();
 				};
-
 
 				static TPointer<Variable> imageDrawFilledRectangle(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-image-draw-filled-rectangle\n");
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -942,32 +874,29 @@ namespace Quantum {
 					Number lx = (arguments->index(2))->toNumber();
 					Number ly = (arguments->index(3))->toNumber();
 
-					if((!(isnan(sx) || isinf(sx))) &&
-						(!(isnan(sy) || isinf(sy))) &&
-						(!(isnan(lx) || isinf(lx))) &&
-						(!(isnan(ly) || isinf(ly)))) {
+					if ((!(isnan(sx) || isinf(sx))) &&
+					    (!(isnan(sy) || isinf(sy))) &&
+					    (!(isnan(lx) || isinf(lx))) &&
+					    (!(isnan(ly) || isinf(ly)))) {
 
 						TPointerX<Variable> &pixel = arguments->index(4);
-						if(TIsType<VariablePixel>(pixel)) {
+						if (TIsType<VariablePixel>(pixel)) {
 							Pixel32Process::drawFilledRectangle(((VariableImage *)(this_))->image,
-								(Integer)sx,
-								(Integer)sy,
-								(Integer)lx,
-								(Integer)ly,
-								((VariablePixel *)(pixel.value()))->pixel
-							);
+							                                    (Integer)sx,
+							                                    (Integer)sy,
+							                                    (Integer)lx,
+							                                    (Integer)ly,
+							                                    ((VariablePixel *)(pixel.value()))->pixel);
 						};
-
 					};
 					return Context::getValueUndefined();
 				};
-
 
 				static TPointer<Variable> imageColorRescale(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-image-color-rescale\n");
 #endif
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -976,14 +905,13 @@ namespace Quantum {
 					return Context::getValueUndefined();
 				};
 
-
 				static TPointer<Variable> imageAverage(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-image-average\n");
 
 #endif
 
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -991,52 +919,48 @@ namespace Quantum {
 					Number level2 = (arguments->index(2))->toNumber();
 					Number delta = (arguments->index(3))->toNumber();
 
-					if((!(isnan(level1) || isinf(level1) || signbit(level1))) &&
-						(!(isnan(level2) || isinf(level2) || signbit(level2))) &&
-						(!(isnan(delta) || isinf(delta) || signbit(delta)))) {
+					if ((!(isnan(level1) || isinf(level1) || signbit(level1))) &&
+					    (!(isnan(level2) || isinf(level2) || signbit(level2))) &&
+					    (!(isnan(delta) || isinf(delta) || signbit(delta)))) {
 
 						TPointerX<Variable> &imageIn2 = arguments->index(0);
-						if(TIsType<VariableImage>(imageIn2)) {
+						if (TIsType<VariableImage>(imageIn2)) {
 
 							Pixel32Process::average(((VariableImage *)(this_))->image,
-								((VariableImage *)(imageIn2.value()))->image,
-								(Integer)level1,
-								(Integer)level2,
-								(Integer)delta
-							);
+							                        ((VariableImage *)(imageIn2.value()))->image,
+							                        (Integer)level1,
+							                        (Integer)level2,
+							                        (Integer)delta);
 
 							return this_;
 						};
-
 					};
 					return Context::getValueUndefined();
 				};
-
 
 				static TPointer<Variable> imageKernel3X3(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-image-kernel3x3\n");
 
 #endif
-					if(!TIsType<VariableImage>(this_)) {
+					if (!TIsType<VariableImage>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					TPointerX<Variable> &kernel = arguments->index(0);
-					if(!TIsType<VariableKernel3X3>(kernel)) {
+					if (!TIsType<VariableKernel3X3>(kernel)) {
 						throw(Error("invalid parameter"));
 					};
 
 					return VariableImage::newVariable(Pixel32Process::kernel3X3(((VariableImage *)(this_))->image,
-								*(((VariableKernel3X3 *)(kernel.value()))->kernel)));
-
+					                                                            *(((VariableKernel3X3 *)(kernel.value()))->kernel)));
 				};
 
 				static TPointer<Variable> kernel3X3GetNormalA(VariableFunction *function, Variable *this_, VariableArray *arguments) {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-kernel3x3-get-normalA\n");
 #endif
-					if(!TIsType<VariableKernel3X3>(this_)) {
+					if (!TIsType<VariableKernel3X3>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -1047,7 +971,7 @@ namespace Quantum {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-kernel3x3-set-normalA\n");
 #endif
-					if(!TIsType<VariableKernel3X3>(this_)) {
+					if (!TIsType<VariableKernel3X3>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -1060,7 +984,7 @@ namespace Quantum {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-kernel3x3-get-normalB\n");
 #endif
-					if(!TIsType<VariableKernel3X3>(this_)) {
+					if (!TIsType<VariableKernel3X3>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -1071,7 +995,7 @@ namespace Quantum {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-kernel3x3-set-normalB\n");
 #endif
-					if(!TIsType<VariableKernel3X3>(this_)) {
+					if (!TIsType<VariableKernel3X3>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
@@ -1084,14 +1008,14 @@ namespace Quantum {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-kernel3x3-get-matrix-v\n");
 #endif
-					if(!TIsType<VariableKernel3X3>(this_)) {
+					if (!TIsType<VariableKernel3X3>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					size_t x = (arguments->index(0))->toIndex();
 					size_t y = (arguments->index(1))->toIndex();
 
-					if(x > 2 || y > 2) {
+					if (x > 2 || y > 2) {
 						return Context::getValueUndefined();
 					};
 
@@ -1102,14 +1026,14 @@ namespace Quantum {
 #ifdef QUANTUM_SCRIPT_VM_DEBUG_RUNTIME
 					printf("- pixel32-kernel3x3-set-matrix-v\n");
 #endif
-					if(!TIsType<VariableKernel3X3>(this_)) {
+					if (!TIsType<VariableKernel3X3>(this_)) {
 						throw(Error("invalid parameter"));
 					};
 
 					size_t x = (arguments->index(0))->toIndex();
 					size_t y = (arguments->index(1))->toIndex();
 
-					if(x > 2 || y > 2) {
+					if (x > 2 || y > 2) {
 						return Context::getValueUndefined();
 					};
 
@@ -1122,9 +1046,7 @@ namespace Quantum {
 					TPointer<Kernel3X3> kernel;
 					kernel.newMemory();
 					kernel->copy(src);
-					(((Context::getGlobalObject())->getPropertyBySymbol(Context::getSymbol("Pixel32")))->
-							getPropertyBySymbol(Context::getSymbol("Kernel3X3")))->
-						setPropertyBySymbol(Context::getSymbol(name),VariableKernel3X3::newVariable(kernel));
+					(((Context::getGlobalObject())->getPropertyBySymbol(Context::getSymbol("Pixel32")))->getPropertyBySymbol(Context::getSymbol("Kernel3X3")))->setPropertyBySymbol(Context::getSymbol(name), VariableKernel3X3::newVariable(kernel));
 				};
 
 				void registerInternalExtension(Executive *executive) {
@@ -1215,4 +1137,3 @@ extern "C" QUANTUM_SCRIPT_EXTENSION_PIXEL32_EXPORT void quantumScriptExtension(Q
 	Quantum::Script::Extension::Pixel32::initExecutive(executive, extensionId);
 };
 #endif
-

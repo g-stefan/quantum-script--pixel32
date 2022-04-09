@@ -54,16 +54,14 @@ namespace Quantum {
 				Variable *VariablePixel::newVariable(Pixel pixel_) {
 					VariablePixel *retV = TMemory<VariablePixel>::newMemory();
 					retV->pixel = pixel_;
-					return (Variable *) retV;
+					return (Variable *)retV;
 				};
 
 				Variable *VariablePixel::instancePrototype() {
 					return (Extension::Pixel32::getContext())->prototypePixel->prototype;
 				};
 
-
 			};
 		};
 	};
 };
-

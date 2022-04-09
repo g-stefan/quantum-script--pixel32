@@ -22,7 +22,6 @@ namespace Quantum {
 				using namespace XYO;
 				using namespace XYO::Pixel32;
 
-
 				XYO_DYNAMIC_TYPE_IMPLEMENT(VariableImage, "{E08EA60C-268F-4D99-B5E1-F449ACDEA6A7}");
 				const char *VariableImage::strTypeImage = "Pixel32.Image";
 
@@ -52,7 +51,7 @@ namespace Quantum {
 				Variable *VariableImage::newVariable(Image *image_) {
 					VariableImage *retV = TMemory<VariableImage>::newMemory();
 					retV->image = image_;
-					return (Variable *) retV;
+					return (Variable *)retV;
 				};
 
 				Variable *VariableImage::instancePrototype() {
@@ -68,4 +67,3 @@ namespace Quantum {
 		};
 	};
 };
-
