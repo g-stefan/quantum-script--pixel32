@@ -1,0 +1,15 @@
+{
+	"project": {
+		"name":"quantum-script--pixel32",
+		"type":"xyo-cpp",
+		"make" : "lib-and-dll",
+		"SPDX-License-Identifier": "MIT",
+		"sourcePath" : "XYO/QuantumScript.Extension/Pixel32",
+		"dependency" : [
+			"quantum-script",
+			"quantum-script--console",
+			"quantum-script--random",
+			"xyo-pixel32"
+		]
+	}
+}
