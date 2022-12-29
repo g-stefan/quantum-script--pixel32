@@ -10,6 +10,8 @@
 			"quantum-script--console",
 			"quantum-script--random",
 			"xyo-pixel32"
-		]
+		],
+		"hasRelease" : true,
+		"githubRelease" : true
 	}
 }
