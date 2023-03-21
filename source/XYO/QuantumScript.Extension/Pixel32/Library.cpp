@@ -1030,7 +1030,7 @@ namespace XYO::QuantumScript::Extension::Pixel32 {
 		TMemory<VariableImage>::initMemory();
 
 		String info = "Pixel32\r\n";
-		info << License::shortLicense();
+		info << License::shortLicense().c_str();
 
 		executive->setExtensionName(extensionId, "Pixel32");
 		executive->setExtensionInfo(extensionId, info);
