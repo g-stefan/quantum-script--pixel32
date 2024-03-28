@@ -11,10 +11,10 @@ namespace XYO::QuantumScript::Extension::Pixel32::License {
 
 	std::string license() {
 		std::string retV;
-		retV += ManagedMemory::License::licenseMITHeader();
+		retV += Platform::License::licenseMITHeader();
 		retV += Copyright::copyright();
 		retV += "\r\n";
-		retV += ManagedMemory::License::licenseMITContent();
+		retV += Platform::License::licenseMITContent();
 		retV += "\r\n";
 		retV += XYO::Pixel32::License::license();
 		return retV;
@@ -24,7 +24,7 @@ namespace XYO::QuantumScript::Extension::Pixel32::License {
 		std::string retV;
 		retV += Copyright::copyright();
 		retV += "\r\n";
-		retV += ManagedMemory::License::licenseMITShort();
+		retV += Platform::License::licenseMITShort();
 		return retV;
 	};
 

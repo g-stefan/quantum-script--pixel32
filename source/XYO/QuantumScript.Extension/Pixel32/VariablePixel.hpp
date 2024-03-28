@@ -27,7 +27,7 @@ namespace XYO::QuantumScript::Extension::Pixel32 {
 	using namespace XYO::Pixel32;
 
 	class VariablePixel : public Variable {
-			XYO_DISALLOW_COPY_ASSIGN_MOVE(VariablePixel);
+			XYO_PLATFORM_DISALLOW_COPY_ASSIGN_MOVE(VariablePixel);
 			XYO_DYNAMIC_TYPE_DEFINE(XYO_QUANTUMSCRIPT_EXTENSION_PIXEL32_EXPORT, VariablePixel);
 
 		protected:

@@ -14,7 +14,7 @@
 namespace XYO::QuantumScript::Extension::Pixel32 {
 
 	class Pixel32Context : public Object {
-			XYO_DISALLOW_COPY_ASSIGN_MOVE(Pixel32Context);
+			XYO_PLATFORM_DISALLOW_COPY_ASSIGN_MOVE(Pixel32Context);
 
 		public:
 			Symbol symbolFunctionPixel;
