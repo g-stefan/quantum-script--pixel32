@@ -54,4 +54,8 @@ namespace XYO::QuantumScript::Extension::Pixel32 {
 		return (Extension::Pixel32::getContext())->prototypePixel->prototype;
 	};
 
+	Variable *VariablePixel::clone(SymbolList &inSymbolList) {
+		return newVariable(pixel);
+	};
+
 };

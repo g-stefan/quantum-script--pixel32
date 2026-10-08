@@ -50,8 +50,9 @@ namespace XYO::QuantumScript::Extension::Pixel32 {
 			XYO_QUANTUMSCRIPT_EXTENSION_PIXEL32_EXPORT String toString();
 			XYO_QUANTUMSCRIPT_EXTENSION_PIXEL32_EXPORT bool isEqual(Variable *variable);
 
-			XYO_QUANTUMSCRIPT_EXTENSION_PIXEL32_EXPORT Variable &operatorReference(Symbol symbolId);
 			XYO_QUANTUMSCRIPT_EXTENSION_PIXEL32_EXPORT Variable *instancePrototype();
+
+			XYO_QUANTUMSCRIPT_EXTENSION_PIXEL32_EXPORT Variable *clone(SymbolList &inSymbolList);
 
 			static void initMemory();
 	};

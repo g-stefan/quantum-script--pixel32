@@ -1,5 +1,6 @@
 {
 	"solution": {
+		"namespace" : "xyo",
 		"name" : "quantum-script--pixel32",
 		"type" : "xyo-cpp",
 		"projects": [
@@ -13,6 +14,16 @@
 					"quantum-script--console",
 					"quantum-script--random",
 					"xyo-pixel32"
+				]
+			},
+			{
+				"name" : "test.0003",
+				"make" : "exe",
+				"category" : "test",
+				"SPDX-License-Identifier": "Unlicense",
+				"dependency" : [
+					"quantum-script--pixel32",
+					"quantum-script--thread"
 				]
 			}
 		]

@@ -6,6 +6,10 @@
 
 Script.requireExtension("Random");
 
+// Resize a tile to lx x ly so that it still tiles (fz = lx / width): a 1 pixel
+// wrapped border is added and the image is resized; resize maps corner to
+// corner, so the part from fz to the far edge (the right / bottom border is
+// the wrapped first row / column) is cut and resized to lx x ly
 Pixel32.Image.prototype.wrapBox1Resize = function(lx, ly, fz, k) {
 	var ddx, ddy, imgTmp1, imgTmp2, imgOut;
 	imgTmp1 = this.wrapBox(1, 1);
@@ -30,8 +34,16 @@ Pixel32.perlinNoiseWrapBox = function(lx, ly, freqAndSum, rnd) {
 		imgTmp.colorRescale();
 		imgList[m - k - 1] = imgTmp.wrapBox1Resize(lx, ly, freqAndSum[k][0], k);
 	};
-	imgTmp = imgList[0];
-	for (k = 1; k < m; ++k) {
+	// octaves smaller than 1 pixel are skipped, they leave holes in imgList
+	imgTmp = undefined;
+	for (k = 0; k < m; ++k) {
+		if (Script.isUndefined(imgList[k])) {
+			continue;
+		};
+		if (Script.isUndefined(imgTmp)) {
+			imgTmp = imgList[k];
+			continue;
+		};
 		imgTmp.average(imgList[k], freqAndSum[k][1], freqAndSum[k][2], freqAndSum[k][1] + freqAndSum[k][2]);
 	};
 	return imgTmp;
@@ -54,8 +66,16 @@ Pixel32.perlinNoise2BitWrapBox = function(lx, ly, freqAndSum, rnd) {
 		imgTmp.colorRescale();
 		imgList[m - k - 1] = imgTmp.wrapBox1Resize(lx, ly, freqAndSum[k][0], k);
 	};
-	imgTmp = imgList[0];
-	for (k = 1; k < m; ++k) {
+	// octaves smaller than 1 pixel are skipped, they leave holes in imgList
+	imgTmp = undefined;
+	for (k = 0; k < m; ++k) {
+		if (Script.isUndefined(imgList[k])) {
+			continue;
+		};
+		if (Script.isUndefined(imgTmp)) {
+			imgTmp = imgList[k];
+			continue;
+		};
 		imgTmp.average(imgList[k], freqAndSum[k][1], freqAndSum[k][2], freqAndSum[k][1] + freqAndSum[k][2]);
 	};
 	return imgTmp;

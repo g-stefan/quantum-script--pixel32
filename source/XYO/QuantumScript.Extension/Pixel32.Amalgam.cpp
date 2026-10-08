@@ -10,5 +10,5 @@
 #include <XYO/QuantumScript.Extension/Pixel32/Version.cpp>
 #include <XYO/QuantumScript.Extension/Pixel32/Library.cpp>
 #include <XYO/QuantumScript.Extension/Pixel32/VariableImage.cpp>
-#include <XYO/QuantumScript.Extension/Pixel32/VariableKernel3x3.cpp>
+#include <XYO/QuantumScript.Extension/Pixel32/VariableKernel3X3.cpp>
 #include <XYO/QuantumScript.Extension/Pixel32/VariablePixel.cpp>

@@ -51,6 +51,15 @@ namespace XYO::QuantumScript::Extension::Pixel32 {
 		return (Extension::Pixel32::getContext())->prototypeImage->prototype;
 	};
 
+	// Deep copy, the copy does not share the pixels
+	Variable *VariableImage::clone(SymbolList &inSymbolList) {
+		TPointer<Image> imageCopy = XYO::Pixel32::Process::cut(image, 0, 0, image->width, image->height);
+		if (!imageCopy) {
+			return Variable::newVariable();
+		};
+		return newVariable(imageCopy.value());
+	};
+
 	void VariableImage::initMemory() {
 		Variable::initMemory();
 		TPointer<Image>::initMemory();

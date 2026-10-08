@@ -51,6 +51,13 @@ namespace XYO::QuantumScript::Extension::Pixel32 {
 		return (Extension::Pixel32::getContext())->prototypeKernel3X3->prototype;
 	};
 
+	Variable *VariableKernel3X3::clone(SymbolList &inSymbolList) {
+		TPointer<Kernel3X3> kernelCopy;
+		kernelCopy.newMemory();
+		kernelCopy->copy(*kernel);
+		return newVariable(kernelCopy);
+	};
+
 	void VariableKernel3X3::initMemory() {
 		Variable::initMemory();
 		TPointer<Kernel3X3>::initMemory();

@@ -52,6 +52,8 @@ namespace XYO::QuantumScript::Extension::Pixel32 {
 
 			XYO_QUANTUMSCRIPT_EXTENSION_PIXEL32_EXPORT Variable *instancePrototype();
 
+			XYO_QUANTUMSCRIPT_EXTENSION_PIXEL32_EXPORT Variable *clone(SymbolList &inSymbolList);
+
 			static void initMemory();
 	};
 
